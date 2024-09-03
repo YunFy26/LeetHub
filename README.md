@@ -1,6 +1,1 @@
-> 1. 快速幂运算
-
-![img.png](images/img.png)
-
-
-> 2. 
+Record the data structure and algorithm questions have practiced, and the knowledge points have encountered while practicing.
