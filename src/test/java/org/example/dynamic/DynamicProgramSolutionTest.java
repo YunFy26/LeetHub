@@ -6,7 +6,8 @@ public class DynamicProgramSolutionTest {
 
     @Test
     public void testFibonacci(){
-        int fibonacci = DynamicProgramSolution.Fibonacci(9);
-        assert fibonacci == 34;
+        int fibonacci = DynamicProgramSolution.Fibonacci(48);
+        System.out.println(fibonacci);
+        assert fibonacci == 807526948;
     }
 }

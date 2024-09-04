@@ -10,10 +10,29 @@ public class DynamicProgramSolution {
      * @param n 正整数
      * @return 斐波那契数列的第n项
      */
-    public static int Fibonacci(int n){
+    public static int Fibonacci(int n) {
 
+        final int MOD = 1000000007;
         if (n == 1 || n == 2) return 1;
-        return 0;
+        int a = 1, b = 1, c = 0;
+        for (int i = 3; i <= n; i++) {
+            c = (a + b) % MOD;
+            a = b;
+            b = c;
+        }
+        return c;
     }
+
+    /**
+     * 矩阵快速幂解斐波那契数列
+     * @param n 正整数
+     * @return 斐波那契数列的第n项
+     */
+//    public static int FibonacciPow(int n) {
+//
+//        final int MOD = 1000000007;
+//
+//
+//    }
 
 }
