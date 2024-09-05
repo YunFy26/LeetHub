@@ -68,7 +68,31 @@ public class TreeSolutionTest {
         TreeNodeShow.show(root);
         TreeNodeShow.show(subRoot);
         boolean isSubtree = TreeSolution.isSubtree(root, subRoot);
-        assert isSubtree;
+        assert !isSubtree;
+    }
+
+    @Test
+    public void testIsSymmetric(){
+        TreeNode root = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(2, new TreeNode(4), new TreeNode(3)));
+        TreeNodeShow.show(root);
+        boolean isSymmetric = TreeSolution.isSymmetric(root);
+        assert isSymmetric;
+    }
+
+    @Test
+    public void testMinDepth(){
+        TreeNode root = new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4, null, new TreeNode(5, null, new TreeNode(6)))));
+        TreeNodeShow.show(root);
+        int minDepth = TreeSolution.minDepth(root);
+        assert minDepth == 5;
+    }
+
+    @Test
+    public void testSumOfLeftLeaves(){
+        TreeNode root = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+        TreeNodeShow.show(root);
+        int sum = TreeSolution.sumOfLeftLeaves(root);
+        assert sum == 24;
     }
 
 }

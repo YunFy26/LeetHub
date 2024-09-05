@@ -167,4 +167,46 @@ public class TreeSolution {
     }
 
 
+    /**
+     * 检查一个二叉树是否轴对称
+     * @param root 根节点
+     * @return boolean
+     */
+    public static boolean isSymmetric(TreeNode root) {
+
+        return isTrue(root.left, root.right);
+
+    }
+
+    private static boolean isTrue(TreeNode root1, TreeNode root2){
+
+        if(root1 == null && root2 == null) return true;
+        return root1 != null && root2 != null && root1.val == root2.val && isTrue(root1.left, root2.right) && isTrue(root1.right, root2.left);
+    }
+
+    /**
+     * 给定一个二叉树，找出其最小深度
+     * 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+     * @param root
+     * @return
+     */
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left != null && root.right != null) return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+        return Math.max(minDepth(root.left), minDepth(root.right)) + 1;
+    }
+
+    /**
+     * 给定二叉树的根节点 root ，返回所有左叶子之和
+     * @param root
+     * @return
+     */
+    public static int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left != null && root.left.left == null && root.left.right == null) {
+            return root.left.val + sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+        }
+        return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+    }
+
 }
