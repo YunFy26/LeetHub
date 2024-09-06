@@ -95,4 +95,13 @@ public class TreeSolutionTest {
         assert sum == 24;
     }
 
+    @Test
+    public void testLongestUnivaluePath(){
+//        TreeNode root = new TreeNode(5, new TreeNode(1, new TreeNode(1), new TreeNode(1, new TreeNode(1), null)), new TreeNode(5, null, new TreeNode(5)));
+        TreeNode root = new TreeNode(5, new TreeNode(5), null);
+        TreeNodeShow.show(root);
+        int longestUnivaluePath = TreeSolution.longestUnivaluePath(root);
+        assert longestUnivaluePath == 1;
+    }
+
 }

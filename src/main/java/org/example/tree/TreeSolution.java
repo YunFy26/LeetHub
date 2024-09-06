@@ -209,4 +209,30 @@ public class TreeSolution {
         return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
     }
 
+    /**
+     * 最长同值路径, 可以经过根节点也可以不经过根节点
+     * @param root
+     * @return
+     */
+    static int sum;
+    public static int longestUnivaluePath(TreeNode root) {
+        sum = 0;
+        longestPath(root);
+        return sum;
+//        if (root == null) return 0;
+//        return Math.max(longestPath(root), Math.max(longestUnivaluePath(root.left), longestUnivaluePath(root.right)));
+
+    }
+
+    private static int longestPath(TreeNode root){
+        if (root == null) return 0;
+        int left1 = longestPath(root.left);
+        int right1 = longestPath(root.right);
+        int left = 0, right = 0;
+        if (root.left != null && root.left.val == root.val) left = left1 + 1;
+        if (root.right != null && root.right.val == root.val) right = right1 + 1;
+        sum = Math.max(sum, left + right);
+        return Math.max(left, right);
+    }
+
 }
