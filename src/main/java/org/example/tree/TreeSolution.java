@@ -1,6 +1,10 @@
 package org.example.tree;
 
 
+import com.sun.source.tree.Tree;
+
+import java.util.*;
+
 public class TreeSolution {
 
     /**
@@ -234,5 +238,110 @@ public class TreeSolution {
         sum = Math.max(sum, left + right);
         return Math.max(left, right);
     }
+
+    /**
+     * 打家劫舍
+     * @param root 根节点
+     * @return 最大金额
+     */
+    static Map<TreeNode, Integer> select = new HashMap<>();
+    static Map<TreeNode, Integer> noSelect = new HashMap<>();
+    public static int rob(TreeNode root){
+        dfs(root);
+        return Math.max(select.getOrDefault(root, 0), noSelect.getOrDefault(root, 0));
+    }
+
+    private static void dfs(TreeNode root){
+        if (root == null) return;
+        dfs(root.left);
+        dfs(root.right);
+        select.put(root, root.val + noSelect.getOrDefault(root.left, 0) + noSelect.getOrDefault(root.right, 0));
+        noSelect.put(root, Math.max(select.getOrDefault(root.left, 0), noSelect.getOrDefault(root.left, 0)) + Math.max(select.getOrDefault(root.right, 0), noSelect.getOrDefault(root.right, 0)));
+    }
+
+    /**
+     * 给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。
+     * 如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
+     * 二叉树中第二小的节点
+     * @return
+     */
+    int rootValue;
+    int ans;
+    public int findSecondMinimumValue(TreeNode root){
+        ans = -1;
+        rootValue = root.val;
+        dfs2(root);
+        return ans;
+    }
+
+    private void dfs2(TreeNode treeNode){
+        if (treeNode == null) return;
+        if (ans != -1 && treeNode.val >= ans) return;
+        if (treeNode.val > rootValue) ans = treeNode.val;
+        dfs2(treeNode.left);
+        dfs2(treeNode.right);
+    }
+
+
+    /**
+     * 非递归先序遍历二叉树
+     * @param root 根节点
+     * @return 先序遍历结果
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            res.add(stack.pop().val);
+            if (root.right != null) stack.push(root.right);
+            if (root.left != null) stack.push(root.left);
+        }
+        return res;
+    }
+
+    /**
+     * 非递归中序遍历二叉树
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while(root != null || !stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            ans.add(root.val);
+            root = root.right;
+        }
+        return ans;
+    }
+
+    /**
+     * 层次遍历
+     * 返回每层节点的平均值
+     */
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> ans = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root == null) return ans;
+        queue.add(root);
+        while(!queue.isEmpty()){
+            double sum = 0;
+            int size = queue.size();
+            for (int i=0; i<size; ++i) {
+                TreeNode node = queue.poll();
+                sum += node.val;
+                if (node.left != null) queue.add(node.left);
+                if (node.right != null) queue.add(node.right);
+            }
+            ans.add(sum / size);
+        }
+        return ans;
+    }
+
+
 
 }
