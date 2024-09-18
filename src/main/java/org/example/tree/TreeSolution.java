@@ -342,6 +342,71 @@ public class TreeSolution {
         return ans;
     }
 
+    /**
+     * 找非空二叉树的最底层最左边的节点的值
+     * @param root
+     * @return
+     */
+    public int findBottomLeftValue(TreeNode root) {
+        int height = getHeight(root);
+        int init = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root != null) queue.add(root);
+        while (!queue.isEmpty()){
+            init++;
+            if (init == height - 1) break;
+            int size = queue.size();
+            for (int i=0; i<size; i++){
+                TreeNode node = queue.poll();
+                if (node.left != null) queue.add(node.left);
+                if (node.right != null) queue.add(node.right);
+            }
+        }
+        return queue.poll().val;
+    }
+
+    private int getHeight(TreeNode root){
+        if (root == null) return 0;
+        return Math.max(getHeight(root.left),getHeight(root.right)) + 1;
+    }
+
+    /**
+     * 修剪二叉搜索树
+     * 给你二叉搜索树的根节点 root ，同时给定最小边界low 和最大边界 high。通过修剪二叉搜索树，使得所有节点的值在[low, high]中。
+     * 修剪树 不应该 改变保留在树中的元素的相对结构 (即，如果没有被移除，原有的父代子代关系都应当保留)。 可以证明，存在 唯一的答案 。
+     * @param root
+     * @param low
+     * @param high
+     * @return
+     */
+    public static TreeNode trimBST(TreeNode root, int low, int high){
+        while (root != null && (root.val < low || root.val > high)){
+            if (root.val < low){
+                root = root.right;
+            }else {
+                root = root.left;
+            }
+        }
+        if (root == null) return null;
+        for (TreeNode node = root; node.left != null;){
+            if (node.left.val < low){
+                node.left = node.left.right;
+            }else {
+                node = node.left;
+            }
+        }
+
+        for (TreeNode node = root; node.right != null;){
+            if (node.right.val > high){
+                node.right = node.right.left;
+            }else {
+                node = node.right;
+            }
+        }
+        return root;
+
+    }
+
 
 
 }
