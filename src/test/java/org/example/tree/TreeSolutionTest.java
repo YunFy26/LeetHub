@@ -104,4 +104,19 @@ public class TreeSolutionTest {
         assert longestUnivaluePath == 1;
     }
 
+    @Test
+    public void testMinValue(){
+        TreeNode root = new TreeNode(2, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
+        TreeNodeShow.show(root);
+
+    }
+
+    @Test
+    public void testTrimBST(){
+        TreeNode root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
+        TreeNodeShow.show(root);
+        TreeNode trimBST = TreeSolution.trimBST(root, 3, 4);
+        TreeNodeShow.show(trimBST);
+    }
+
 }
